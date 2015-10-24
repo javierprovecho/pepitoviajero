@@ -1,0 +1,24 @@
+{
+  "name": "pepitoviajero",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "unirest": "^0.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javierprovecho/servidor.git"
+  },
+  "author": "Javier Provecho Fernandez <javiertitan@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/javierprovecho/servidor/issues"
+  },
+  "homepage": "https://github.com/javierprovecho/servidor#readme"
+}
