@@ -106,14 +106,31 @@ app.post('/setcolor', function(req, res) {
     .send({
       'value': req.query.red + ',' + req.query.green + ',' + req.query.blue
     })
-    .end(function(responseA){
-      if (responseA.body.code != 200) {
-        res.status(400).send();
+    .end(function(response){
+      if (response.status != 200) {
+        console.log(response);
+        res.status(400).send({
+          'message': 'response failed'
+        });
         return;
       };
       res.status(204).send();
     });
 });
+
+app.get('/ping', function(req, res) {
+  unirest.get('http://139.162.157.59:6868/')
+  .end(function(response) {
+    if (response.status != 200) {
+      console.log(response);
+      res.status(503).send({
+        'message': 'daemon unavailable'
+      });
+      return;
+    };
+    res.status(204).send();
+  });
+})
 
 var server = app.listen(app.get('port'), function () {
   var port = server.address().port;
