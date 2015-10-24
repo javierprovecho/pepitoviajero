@@ -21,7 +21,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, $http, $interval, $ionicLoading) {
+.controller('AccountCtrl', function($scope, $http, $interval, $ionicLoading, $ionicPopup) {
   $scope.changeColor = function(red, green, blue) {
     $http.get('http://pepitoviajero.herokuapp.com/setcolor',
       {
@@ -49,6 +49,11 @@ angular.module('starter.controllers', ['ionic'])
         }, 2000);
         console.log('funciona!');
       }, function(error) {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Vaya...',
+          template: 'Nuestros monos no han podido cambiar la emoción de Pepito.'
+        });
+        alertPopup.then(function(res) {});
         console.log('no funciona: ', error);
       });
   };
