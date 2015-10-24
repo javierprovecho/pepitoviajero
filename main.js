@@ -13,15 +13,18 @@ app.get('/raw', function(req, res) {
     });
 });
 
-app.get('/temperature', function(req, res) {
+app.get('/all', function(req, res) {
   unirest.get('http://hackathon.ttcloud.net:10026/v1/contextEntities/UOE9AW')
     .header('Accept', 'application/json')
     .header('Fiware-Service', 'todosincluidos')
     .header('Fiware-ServicePath', '/iot')
     .end(function(response){
+      var luminance = response.body.contextElement.attributes[8];
+      var humidity = response.body.contextElement.attributes[6];
       var temperature = response.body.contextElement.attributes[16];
-      console.log(temperature);
       model = {
+        'luminance': luminance.value,
+        'humidity': humidity.value,
         'temperature': temperature.value
       };
       res.send(model);
