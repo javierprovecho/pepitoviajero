@@ -118,7 +118,7 @@ app.post('/setcolor', function(req, res) {
     });
 });
 
-app.get('/ping', function(req, res) {
+app.post('/ping', function(req, res) {
   unirest.get('http://139.162.157.59:6868/')
   .end(function(response) {
     if (response.status != 200) {
