@@ -1,0 +1,34 @@
+<ion-view view-title="Account">
+  <ion-content>
+    <ion-list>
+    <ion-toggle  ng-model="settings.enableFriends">
+        Enable Friends
+    </ion-toggle>
+    <p ng-click="changeColor()">clic aqui</p>
+    <button ng-click="changeColor(1,0,0)" class="button button-block button-positive">
+      Rojo
+    </button>
+    <button ng-click="changeColor(0,1,0)" class="button button-block button-positive">
+      Verde
+    </button>
+    <button ng-click="changeColor(0,0,1)" class="button button-block button-positive">
+      Azul
+    </button>
+    <button ng-click="changeColor(1,0,1)" class="button button-block button-positive">
+      Magenta
+    </button>
+    <button ng-click="changeColor(1,1,0)" class="button button-block button-positive">
+      Amarillo
+    </button>
+    <button ng-click="changeColor(0,1,1)" class="button button-block button-positive">
+      Cyan
+    </button>
+    <button ng-click="changeColor(0,0,0)" class="button button-block button-positive">
+      Negro/Apagado
+    </button>
+    <button ng-click="changeColor(1,1,1)" class="button button-block button-positive">
+      Blanco
+    </button>
+    </ion-list>
+  </ion-content>
+</ion-view>
