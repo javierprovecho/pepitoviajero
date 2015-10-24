@@ -1,6 +1,7 @@
 var express = require('express');
 var unirest = require('unirest');
 var async = require('async');
+var serveStatic = require('serve-static');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -12,6 +13,9 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+app.use(serveStatic('public/', {'index': ['index.html']}));
+app.use(require('serve-static')(__dirname + '/public/complex-list/www'));
 
 app.get('/all', function(req, res) {
   var id = app.get('id');
