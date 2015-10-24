@@ -21,7 +21,10 @@ app.get('/all', function(req, res) {
           .header('Fiware-ServicePath', '/iot')
           .end(function(responseA){
             if (responseA.status != 200) {
-              res.status(400).send();
+              console.log(responseA);
+              res.status(400).send({
+                'message': 'responseA failed'
+              });
               return;
             };
             var data = responseA.body.contextElement;
@@ -44,7 +47,10 @@ app.get('/all', function(req, res) {
           })
           .end(function(responseB){
             if (responseB.status != 200) {
-              res.status(400).send();
+              console.log(responseB);
+              res.status(400).send({
+                'message': 'responseB failed'
+              });
               return;
             };
 
@@ -69,7 +75,10 @@ app.get('/all', function(req, res) {
           .query('latlng=' + model['latitude'] + ',' + model['longitude'])
           .end(function(responseC){
             if (responseC.status != 200) {
-              res.status(400).send();
+              console.log(responseC);
+              res.status(400).send({
+                'message': 'responseC failed'
+              });
               return;
             };
 
