@@ -97,7 +97,7 @@ app.get('/all', function(req, res) {
   ]);
 });
 
-app.post('/setcolor', function(req, res) {
+app.get('/setcolor', function(req, res) {
   var id = app.get('id');
   if (req.query.id) {
     var id = req.query.id;
