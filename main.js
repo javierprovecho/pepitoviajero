@@ -2,6 +2,7 @@ var express = require('express');
 var unirest = require('unirest');
 var app = express();
 
+app.set('port', (process.env.PORT || 5000));
 
 app.get('/raw', function(req, res) {
   unirest.get('http://hackathon.ttcloud.net:10026/v1/contextEntities/UOE9AW')
@@ -31,7 +32,7 @@ app.get('/all', function(req, res) {
     });
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(app.get('port'), function () {
 
   var host = server.address().address;
   var port = server.address().port;
