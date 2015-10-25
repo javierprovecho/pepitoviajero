@@ -1,11 +1,35 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('MapCtrl', function($scope, $ionicLoading) {
+.controller('MapCtrl', function($scope, $ionicLoading, $interval, $http, $ionicPopup) {
   $scope.mapCreated = function(map) {
     $scope.map = map;
     $scope.icon = 'http://pepitoviajero.herokuapp.com/img/pepito-small.png';
+    $scope.userIcon = 'http://pepitoviajero.herokuapp.com/img/user-position-small.png';
+    $scope.updatePosition();
+  };
+
+  $scope.updatePosition = function(){
+    $http.get('http://pepitoviajero.herokuapp.com/all')
+      .then(function(response){
+        $scope.position = new google.maps.LatLng(response.data.latitude, response.data.longitude);
+        $scope.accuracy = response.data.accuracy;
+        if($scope.marker && $scope.circle) {
+          $scope.removeMarkers();
+        } else {
+            $scope.map.setCenter($scope.position);
+        };
+        $scope.createMarkers();
+      }, function(error){ console.log(error);});
+  };
+
+  $scope.removeMarkers = function() {
+    $scope.marker.setMap(null);
+    $scope.circle.setMap(null);
+  };
+
+  $scope.createMarkers = function() {
     $scope.marker = new google.maps.Marker({
-      position: new google.maps.LatLng(43.07493, -89.381388),
+      position: $scope.position,
       map: $scope.map,
       icon: $scope.icon
     });
@@ -16,11 +40,16 @@ angular.module('starter.controllers', ['ionic'])
         fillColor: '#FF0000',
         fillOpacity: 0.35,
         map: $scope.map,
-        center: new google.maps.LatLng(43.07493, -89.381388),
-        radius: 600
+        center: $scope.position,
+        radius: $scope.accuracy / 2
     });
   };
 
+  $interval($scope.updatePosition, 10000);
+
+  $scope.centerOnPepito = function() {
+    $scope.map.setCenter($scope.position);
+  };
   $scope.centerOnMe = function () {
     console.log("Centering");
     if (!$scope.map) {
@@ -34,10 +63,30 @@ angular.module('starter.controllers', ['ionic'])
 
     navigator.geolocation.getCurrentPosition(function (pos) {
       console.log('Got pos', pos);
-      $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+      $scope.userPosition = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+      if($scope.userPositionMarker) {
+        $scope.userPositionMarker.setMap(null);
+      };
+      $scope.userPositionMarker = new google.maps.Marker({
+        position: $scope.userPosition,
+        map: $scope.map,
+        label: '¡Estás aquí!',
+        icon: $scope.userIcon
+      });
+      $scope.map.setCenter($scope.userPosition);
       $ionicLoading.hide();
     }, function (error) {
-      alert('Unable to get location: ' + error.message);
+      $ionicLoading.hide();
+      $ionicPopup.alert({
+        title: 'Vaya...',
+        template: 'No hemos podido localizarte',
+        buttons: [
+          {
+            text: 'OK',
+            type: 'button-stable',
+          }
+        ]
+      });
     });
   };
 })

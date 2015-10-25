@@ -66,3 +66,7 @@ map {
 .scroll {
   height: 100%;
 }
+
+.small-text {
+  font-size: 11px !important
+}
