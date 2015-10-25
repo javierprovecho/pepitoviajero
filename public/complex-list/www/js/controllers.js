@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['ionic'])
 .controller('MapCtrl', function($scope, $ionicLoading) {
   $scope.mapCreated = function(map) {
     $scope.map = map;
-    $scope.icon = 'http://pepitoviajero.herokuapp.com/img/pepito.png';
+    $scope.icon = 'http://pepitoviajero.herokuapp.com/img/pepito-small.png';
     $scope.marker = new google.maps.Marker({
       position: new google.maps.LatLng(43.07493, -89.381388),
       map: $scope.map,
