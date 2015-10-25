@@ -33,31 +33,41 @@ angular.module('starter.controllers', ['ionic'])
       })
       .then(function(response) {
         $ionicLoading.show({
-          template: '<div class="spinner">  <div class="dot1"></div>  <div class="dot2"></div></div><br>Cargando emoción...'
+          template: '<div class="spinner"><div class="dot1"></div><div class="dot2"></div></div><br>Cargando emoción...'
         });
         var stop = $interval(function() {
           $http.get('http://pepitoviajero.herokuapp.com/all')
             .then(function(response) {
               if (response.data.color == red + ',' + green + ',' + blue){
                 $ionicLoading.hide();
+                $ionicPopup.alert({
+                  title: '¡Hecho!',
+                  template: 'En breve <b>Pepito</b> mostrará tu emoción seleccionada.',
+                  buttons: [
+                    {
+                      text: '<span class="ion-social-twitter"></span> ¡Tuitéalo!',
+                      type: 'button-calm',
+                    }
+                  ]
+                });
                 $interval.cancel(stop);
               };
             }, function(error) {
               $ionicLoading.hide();
+              $ionicPopup.alert({
+                title: 'Vaya...',
+                template: 'No hemos podido transmitir la emoción a <b>Pepito</b> en este momento.<br><br>Inténtalo de nuevo más tarde.'
+              });
+              console.log('error: ', error);
               $interval.cancel(stop);
             });
         }, 2000);
-        console.log('funciona!');
       }, function(error) {
-        var alertPopup = $ionicPopup.alert({
+        $ionicPopup.alert({
           title: 'Vaya...',
-          template: 'Nuestros monos no han podido cambiar la emoción de Pepito.'
+          template: 'No hemos podido transmitir la emoción a <b>Pepito</b> en este momento.<br><br>Inténtalo de nuevo más tarde.'
         });
-        alertPopup.then(function(res) {});
-        console.log('no funciona: ', error);
+        console.log('error: ', error);
       });
-  };
-  $scope.settings = {
-    enableFriends: true
   };
 });

@@ -1,34 +1,45 @@
-<ion-view view-title="Account">
+<ion-view view-title="Emociones">
   <ion-content>
+    <div class="card">
+      <div class="item item-text-wrap">
+        Haz clic en una emoción para que <b>Pepito</b> la muestre.
+      </div>
+    </div>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    <p ng-click="changeColor()">clic aqui</p>
-    <button ng-click="changeColor(1,0,0)" class="button button-block button-positive">
-      Rojo
-    </button>
-    <button ng-click="changeColor(0,1,0)" class="button button-block button-positive">
-      Verde
-    </button>
-    <button ng-click="changeColor(0,0,1)" class="button button-block button-positive">
-      Azul
-    </button>
-    <button ng-click="changeColor(1,0,1)" class="button button-block button-positive">
-      Magenta
-    </button>
-    <button ng-click="changeColor(1,1,0)" class="button button-block button-positive">
-      Amarillo
-    </button>
-    <button ng-click="changeColor(0,1,1)" class="button button-block button-positive">
-      Cyan
-    </button>
-    <button ng-click="changeColor(0,0,0)" class="button button-block button-positive">
-      Negro/Apagado
-    </button>
-    <button ng-click="changeColor(1,1,1)" class="button button-block button-positive">
-      Blanco
-    </button>
+      <ul class="list">
+        <li class="item stable-dark" ng-click="changeColor(0,0,0)">
+          estable
+          <span class="color-demo stable-bg stable-border"></span>
+        </li>
+        <li class="item positive" ng-click="changeColor(0,0,1)">
+          positivo
+          <span class="color-demo positive-bg positive-border"></span>
+        </li>
+        <li class="item calm" ng-click="changeColor(0,1,1)">
+          calma
+          <span class="color-demo calm-bg calm-border"></span>
+        </li>
+        <li class="item balanced" ng-click="changeColor(0,1,0)">
+          balance
+          <span class="color-demo balanced-bg balanced-border"></span>
+        </li>
+        <li class="item energized" ng-click="changeColor(1,1,0)">
+          energizado
+          <span class="color-demo energized-bg energized-border"></span>
+        </li>
+        <li class="item assertive" ng-click="changeColor(1,0,0)">
+          afirmativo
+          <span class="color-demo assertive-bg assertive-border"></span>
+        </li>
+        <li class="item royal" ng-click="changeColor(1,0,1)">
+          real
+          <span class="color-demo royal-bg royal-border"></span>
+        </li>
+        <li class="item dark" ng-click="changeColor(1,1,1)">
+          oscuro
+          <span class="color-demo dark-bg dark-border"></span>
+        </li>
+      </ul>
     </ion-list>
   </ion-content>
 </ion-view>
