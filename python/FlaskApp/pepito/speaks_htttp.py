@@ -9,9 +9,12 @@
 """
 
 """
+from pprint import pformat, pprint
 from pepito import twitea
 import random
-url = 'http://pepitoviajero.herokuapp.com/'
+import requests
+import sys
+
 
 headers = {
     'Accept' : 'application/json',
@@ -27,21 +30,26 @@ def generateDict():
         'battery' : random.randint(0, 100),
         'color': rgb,
         'humidity' : random.randint(0, 100),
+        'temperature' : random.randint(0, 40),
         }
 
 
 def setEmotion(emotion):
+    url = 'http://pepitoviajero.herokuapp.com/setcolor'
     emotion_map = twitea.getEmotionMap()
     rgb = emotion_map[emotion]
     rgb = rgb.split(",")
     try:
-        p = requests.get(url, headers=headers, params={'red':rgb[0],
-            'green':rgb[1],
-            'blue':rgb[2]})
+        p = requests.get(url,
+                         headers=headers, params={
+                        'red':rgb[0],
+                        'green':rgb[1],
+                        'blue':rgb[2]})
     except Exception,e:
         return("{} is failing!!!<br>{}".format(url, e))
     return p.url
 def getJSONInput():
+    url = 'http://pepitoviajero.herokuapp.com/all'
     try:
         p = requests.get(url, headers=headers)
     except Exception,e:
@@ -59,7 +67,6 @@ def run(api, buffers_dict, delta_dict={}):
     sensor_buffer = buffers_dict['sensor_buffer']
     tweets_buffer = buffers_dict['tweets_buffer']
     previous_dict = buffers_dict['previous_dict']
-    p = None
     #json_input = getJSONInput()
     json_input = generateDict()
     if json_input is not None:
@@ -69,9 +76,9 @@ def run(api, buffers_dict, delta_dict={}):
         if len(previous_dict) == 0:
             for attr in json_input:
                 previous_dict[attr] = json_input[attr]
+                delta_dict[attr] = json_input[attr]
         else:
             for attr in json_input:
-                print attr
                 try:
                     delta_dict[attr] = abs(json_input[attr] - previous_dict[attr])
                     delta_dict[attr] = float(delta_dict[attr])/float(json_input[attr])

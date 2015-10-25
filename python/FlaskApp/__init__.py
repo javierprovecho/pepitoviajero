@@ -50,10 +50,16 @@ app = Flask(__name__)
 def incoming():
     print "\n\nINCOMING\n\n"
     buffers_dict = initializeBuffers()
-    pprint(buffers_dict)
     try:
         api = twitea.getTwitterAPI()
+    except Exception, e:
+        return str(e)
+
+    try:
         speaks_htttp.run(api, buffers_dict)
+        #return speaks_htttp.setEmotion('enfadado')
+        #return speaks_htttp.setEmotion('triste')
+
         #return run(url+'all', sensor_buffer, tweets_buffer, api, previous_dict)
         #return setEmotion(url+'setcolor', 'triste')
     finally:
@@ -61,5 +67,5 @@ def incoming():
     return "<h1>It Works!</h1>"
 if __name__ == "__main__":
     app.debug = True
-    #app.run(port=6868, host="0.0.0.0")
-    app.run(port=6868)
+    app.run(port=6868, host="0.0.0.0")
+    #app.run(port=6868)

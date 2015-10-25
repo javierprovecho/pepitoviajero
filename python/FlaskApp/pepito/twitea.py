@@ -9,12 +9,13 @@
 """
 
 """
+from pprint import pprint, pformat
 import datetime
 import tweepy
 import os
 import re
 import sys
-
+from pepito import text_generators
 def getColorMap():
     color_map = {'1,0,1' : 'enamorado',
                  '1,0,0' : 'enfadado',
@@ -29,6 +30,7 @@ def getColorMap():
 
 def getEmotionMap():
     emotion_map = {}
+    color_map = getColorMap()
     for rgb in color_map:
         emotion_map[color_map[rgb]] = rgb
     return emotion_map
@@ -57,20 +59,21 @@ def addContext(json_input):
     json_input['emocion'] = color_map[json_input['color']]
     return json_input
 def tweetNewValues(json_input, delta_dict, buff, api):
+    pprint(json_input)
     print "TWEET:"
     for attr in json_input:
-        hash_str = "{}:{}".format(attr, json_input[attr])
-        if hash_str not in buff:
-            buff.add(hash_str)
-            status = getTweet(attr, json_input[attr], delta_dict)
-            if status is not None:
-                if len(status) < 135:
-                    status += "{}".format(uuid.uuid1())
-                    tweetStatus(api, status)
+        #hash_str = "{}:{}".format(attr, json_input[attr])
+        #if hash_str not in buff:
+        #    buff.add(hash_str)
+
+        status = getTweet(attr, json_input[attr], delta_dict[attr])
+        if status is not None:
+            if len(status) < 135:
+                tweetStatus(api, status)
 
 def getTweet(attr, value, delta):
     attr = attr.encode('ascii', 'ignore').lower().strip()
-    if delta != 0:
+    if delta == 0:
         return None
 
     try:
@@ -78,33 +81,35 @@ def getTweet(attr, value, delta):
             return None
     except:
         pass
+    if attr == "emocion":
+        return text_generators.generate(value)
     if attr == "city":
-        return "#{} Un nuevo sitio por descubrir.".format(value)
+        return text_generators.generate('lugar')+" #{}".format(value)
     elif attr == "temperature":
         if value < 19:
-            return "Que Frio!!! {} grados C".format(int(value))
+            return text_generators.generate('frio')
         elif  value >= 25:
-            return "Que Calor {} grados C".format(int(value))
+            return text_generators.generate('calor')
         elif delta > 10:
-            return "Que cambio tan brusco de temperatura.".format(int(value))
+            return text_generators.generate('brusco')
+        return text_generators.generate('normal')
     elif attr == "time":
-        if value == "dia":
-            return "Que tengan un buen dia."
-        elif value == "tarde":
-            return "Buenas tardes."
-        elif value == "noche":
-            return "Buenas Noches"
+        return text_generators.generate(value)
     elif attr == "luminance":
         if value <= 3:
-            return "Que Oscuro!! No veo nada"
+            return text_generators.generate('oscuro')
         if delta >= 50:
-            return "Que haya LUZ!!"
+            return text_generators.generate('luz')
     elif attr == "battery":
-        if value <= 30:
-            return "Ayudadme se me acaba la bateria!! {}%".format(value)
+        if value < 10:
+            return text_generators.generate('baja')+"{}% bat".format(value)
         if value <= 5:
-            return "Adios mundo cruel. Solo {}% de bateria"
-        return "UUfff {}% de bateria.".format(value)
+            return text_generators.generate('muy_baja')+"{}% bat".format(value)
+        if value >= 90:
+            return text_generators.generate('muy_alta')+"{}% bat".format(value)
+        if value >= 60 and value >= 40:
+            return text_generators.generate('normal')+"{}% bat".format(value)
+        return None#"UUfff {}% de bateria.".format(value)
     return None
 
 def tweetStatus(api, status):
