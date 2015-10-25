@@ -110,6 +110,15 @@ angular.module('starter.controllers', ['ionic'])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
+.controller('StatusCtrl', function($scope, $http) {
+  $http.get('http://pepitoviajero.herokuapp.com/all')
+    .then(function(response) {
+      $scope.data = response.data;
+    }, function(error) {
+      console.log(error);
+    });
+})
+
 .controller('EmotionCtrl', function($scope, $http, $interval, $ionicLoading, $ionicPopup) {
   $scope.changeColor = function(red, green, blue) {
     $http.get('http://pepitoviajero.herokuapp.com/setcolor',

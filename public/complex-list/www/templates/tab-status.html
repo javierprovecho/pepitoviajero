@@ -1,0 +1,37 @@
+<ion-view view-title="Estado">
+  <ion-content>
+    <div class="list" ng-show="data">
+
+      <a class="item item-icon-left" href="#">
+        <i class="icon ion-ios-lightbulb"></i>
+        Luminosidad
+        <span class="badge badge-energized">{{ data.luminance }} lux</span>
+      </a>
+
+      <a class="item item-icon-left" href="#">
+        <i class="icon ion-waterdrop"></i>
+        Humedad
+        <span class="badge badge-calm">{{ data.humidity }} %</span>
+      </a>
+
+      <a class="item item-icon-left" href="#">
+        <i class="icon ion-thermometer"></i>
+        Temperatura
+        <span class="badge badge-assertive">{{ data.temperature }} °C</span>
+      </a>
+
+      <a class="item item-icon-left" href="#">
+        <i class="icon ion-battery-half"></i>
+        Batería
+        <span class="badge badge-dark">{{ data.battery }} %</span>
+      </a>
+
+      <a class="item item-icon-left" href="#">
+        <i class="icon ion-map"></i>
+        Ciudad
+        <span class="badge badge-royal">{{ data.city }}</span>
+      </a>
+
+    </div>
+  </ion-content>
+</ion-view>
