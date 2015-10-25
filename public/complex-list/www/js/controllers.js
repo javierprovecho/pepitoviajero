@@ -1,6 +1,30 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('DashCtrl', function($scope) {})
+.controller('MapCtrl', function($scope, $ionicLoading) {
+  $scope.mapCreated = function(map) {
+    $scope.map = map;
+  };
+
+  $scope.centerOnMe = function () {
+    console.log("Centering");
+    if (!$scope.map) {
+      return;
+    };
+
+    $ionicLoading.show({
+      content: 'Getting current location...',
+      showBackdrop: false
+    });
+
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      console.log('Got pos', pos);
+      $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+      $ionicLoading.hide();
+    }, function (error) {
+      alert('Unable to get location: ' + error.message);
+    });
+  };
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -21,7 +45,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope, $http, $interval, $ionicLoading, $ionicPopup) {
+.controller('EmotionCtrl', function($scope, $http, $interval, $ionicLoading, $ionicPopup) {
   $scope.changeColor = function(red, green, blue) {
     $http.get('http://pepitoviajero.herokuapp.com/setcolor',
       {
