@@ -9,6 +9,7 @@
 for i in `seq 1 100`;
   do
     echo $i
-    curl http://localhost:6868/;
+    #curl http://localhost:6868/;
+    curl http://139.162.157.59:6868
     sleep 30s;
   done

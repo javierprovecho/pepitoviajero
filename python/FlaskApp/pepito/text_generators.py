@@ -14,7 +14,7 @@ from pepito.CFG import CFG
 def generate(start_prod):
     cfg1 = CFG()
     cfg1.add_prod('T', 'frio| normal| calor| mucho_frio')
-    cfg1.add_prod('calor', 'enfadado calor_text| calor_texto')
+    cfg1.add_prod('calor', 'enfadado calor_texto| calor_texto')
     cfg1.add_prod('calor_texto', 'insoportable #calor| insoportable calor| #calorin| que calor infernal!| toy sudando enfadado #enfadado')
     cfg1.add_prod('frio', 'frio_texto asqueado| frio_texto')
     cfg1.add_prod('frio_texto', 'Un poco #frio.| Un poco frio| No tengo sueter triste| estoy temblando encendido| esto no es clima templado')
