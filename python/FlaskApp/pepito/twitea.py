@@ -115,9 +115,7 @@ def getTweet(attr, value, delta):
 def tweetStatus(api, status):
     cropped_status = status[:140]
     print("\t{}".format(cropped_status))
-    """
     try:
         api.update_status(status=cropped_status)
     except Exception,e:
         print("\t{}".format(str(e)))
-    """
