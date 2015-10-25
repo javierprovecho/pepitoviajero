@@ -67,8 +67,8 @@ def run(api, buffers_dict, delta_dict={}):
     sensor_buffer = buffers_dict['sensor_buffer']
     tweets_buffer = buffers_dict['tweets_buffer']
     previous_dict = buffers_dict['previous_dict']
-    #json_input = getJSONInput()
-    json_input = generateDict()
+    json_input = getJSONInput()
+    #json_input = generateDict()
     if json_input is not None:
         if 'message' in json_input:
             return "=(<br>message:<br>{}".format(json_input["message"])
