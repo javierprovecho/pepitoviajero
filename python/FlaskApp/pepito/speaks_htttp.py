@@ -30,7 +30,7 @@ def generateDict():
         'battery' : random.randint(0, 100),
         'color': rgb,
         'humidity' : random.randint(0, 100),
-        'temperature' : random.randint(0, 40),
+        'temperature' : random.randint(0, 50),
         }
 
 

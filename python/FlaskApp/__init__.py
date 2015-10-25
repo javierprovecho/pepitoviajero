@@ -67,5 +67,5 @@ def incoming():
     return "<h1>It Works!</h1>"
 if __name__ == "__main__":
     app.debug = True
-    app.run(port=6868, host="0.0.0.0")
-    #app.run(port=6868)
+    #app.run(port=6868, host="0.0.0.0")
+    app.run(port=6868)

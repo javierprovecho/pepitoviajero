@@ -15,7 +15,27 @@ import tweepy
 import os
 import re
 import sys
+import requests
 from pepito import text_generators
+def setToRed():
+    headers = {
+        'Accept' : 'application/json',
+        'Fiware-Service' : 'todosincluidos',
+        'Fiware-ServicePath' : '/iot',
+    }
+    url = 'http://pepitoviajero.herokuapp.com/setcolor'
+    emotion_map = getEmotionMap()
+    rgb = emotion_map['enfadado']
+    rgb = rgb.split(",")
+    try:
+        p = requests.get(url,
+                         headers=headers, params={
+                        'red':rgb[0],
+                        'green':rgb[1],
+                        'blue':rgb[2]})
+    except Exception,e:
+        return("\n%%%%%%%%%%%%%%%\n##############\n{} is failing!!!<br>{}".format(url, e))
+    return p.url
 def getColorMap():
     color_map = {'1,0,1' : 'enamorado',
                  '1,0,0' : 'enfadado',
@@ -59,12 +79,11 @@ def addContext(json_input):
     json_input['emocion'] = color_map[json_input['color']]
     return json_input
 def tweetNewValues(json_input, delta_dict, buff, api):
-    pprint(json_input)
     print "TWEET:"
     for attr in json_input:
-        #hash_str = "{}:{}".format(attr, json_input[attr])
-        #if hash_str not in buff:
-        #    buff.add(hash_str)
+        hash_str = "{}:{}".format(attr, json_input[attr])
+        if hash_str not in buff:
+            buff.add(hash_str)
 
         status = getTweet(attr, json_input[attr], delta_dict[attr])
         if status is not None:
@@ -76,40 +95,41 @@ def getTweet(attr, value, delta):
     if delta == 0:
         return None
 
-    try:
-        if int(delta) <= 30:
-            return None
-    except:
-        pass
     if attr == "emocion":
-        return text_generators.generate(value)
+        return text_generators.generate(value)+" #{}".format(value)
     if attr == "city":
         return text_generators.generate('lugar')+" #{}".format(value)
     elif attr == "temperature":
-        if value < 19:
-            return text_generators.generate('frio')
-        elif  value >= 25:
-            return text_generators.generate('calor')
-        elif delta > 10:
-            return text_generators.generate('brusco')
-        return text_generators.generate('normal')
+        if delta <= 10:
+            return None
+        if value < 10:
+            return text_generators.generate('mucho_frio')+" temp:{}C".format(value)
+        elif  value > 10 and value <= 20:
+            return text_generators.generate('frio')+" temp:{}C".format(value)
+        elif  value >= 36:
+            return text_generators.generate('calor')+" temp:{}C".format(value)
+        elif delta > 20:
+            return "#tempSubeYBaja "+text_generators.generate('brusco')
+        return None
     elif attr == "time":
-        return text_generators.generate(value)
+        return text_generators.generate(value)+" #{}".format(value)
     elif attr == "luminance":
         if value <= 3:
-            return text_generators.generate('oscuro')
+            return text_generators.generate('oscuro')+" #{}".format('oscuro')
         if delta >= 50:
-            return text_generators.generate('luz')
+            return text_generators.generate('luz')+" #{}".format('luz')
     elif attr == "battery":
         if value < 10:
+            print "URL: {}".format(setToRed())
             return text_generators.generate('baja')+"{}% bat".format(value)
         if value <= 5:
+            print "URL: {}".format(setToRed())
             return text_generators.generate('muy_baja')+"{}% bat".format(value)
         if value >= 90:
             return text_generators.generate('muy_alta')+"{}% bat".format(value)
         if value >= 60 and value >= 40:
             return text_generators.generate('normal')+"{}% bat".format(value)
-        return None#"UUfff {}% de bateria.".format(value)
+        return None
     return None
 
 def tweetStatus(api, status):

@@ -101,12 +101,14 @@ class CFG(object):
           #
           try:
               weights = self.weighted_prod[symbol]
+              """
               print '/******* 11111 *******/'
               print symbol
               print self.prod[symbol]
               print weights
               print weighted_choice(weights)
               print '/**************/\n'
+              """
               rand_prod = self.prod[symbol][weighted_choice(weights)]
           except:
                 try:
@@ -116,12 +118,14 @@ class CFG(object):
                             weights.append(cfactor ** (pcount[prod]))
                         else:
                             weights.append(1.0)
+                    """
                     print '/******* 222222 *******/'
                     print symbol
                     print self.prod[symbol]
                     print weights
                     print weighted_choice(weights)
                     print '/**************/\n'
+                    """
                     rand_prod = self.prod[symbol][weighted_choice(weights)]
                 except:
                     rand_prod = random.choice(self.prod[symbol])

@@ -10,5 +10,5 @@ for i in `seq 1 100`;
   do
     echo $i
     curl http://localhost:6868/;
-    sleep 3s;
+    sleep 30s;
   done
