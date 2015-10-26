@@ -4,7 +4,25 @@ Este repositorio contiene el código fuente del proyecto ganador del
 Hackathon Todos Incluidos de Fundación Telefónica, celebrado del 23
 de octubre al 25 de octubre del 2015 en Madrid, España.
 
-El proyecto consta de varios componentes:
+---
+
+## Autores
+
+Este proyecto fue creado por el Equipo Amarillo, formado por:
+- @javierprovecho
+- @rguerra
+- @Camichan
+- @martagonzalezok
+
+---
+
+## Video del proyecto [(YouTube)](https://youtu.be/t9k13rjGsJk)
+
+---
+
+## Componentes
+
+El proyecto esta dividido de la siguiente forma:
 
 - *Webapp*: disponible en la rama `webapp`, y dentro de la carpeta
             `/public/complex-list`. Es un componente realizado con
