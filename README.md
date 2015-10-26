@@ -16,7 +16,11 @@ Este proyecto fue creado por el Equipo Amarillo, formado por:
 
 ---
 
-## Video del proyecto [(YouTube)](https://youtu.be/t9k13rjGsJk)
+## [Video del proyecto (YouTube)](https://youtu.be/t9k13rjGsJk)
+
+---
+
+## [Cuenta de Twitter (@elviajedepepito)](https://twitter.com/elviajedepepito)
 
 ---
 
