@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic'])
+angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 .controller('MapCtrl', function($scope, $ionicLoading, $interval, $http, $ionicPopup) {
   $scope.mapCreated = function(map) {
@@ -117,6 +117,37 @@ angular.module('starter.controllers', ['ionic'])
     }, function(error) {
       console.log(error);
     });
+})
+
+.controller('CameraCtrl', function($scope, $cordovaCamera) {
+  document.addEventListener("deviceready", function () {
+
+    var options = {
+      quality: 50,
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      targetWidth: 100,
+      targetHeight: 100,
+      cameraDirection:1,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false,
+      correctOrientation:true
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      //var image = document.getElementById('myImage');
+      //image.src = "data:image/jpeg;base64," + imageData;
+    }, function(err) {
+      // error
+    });
+
+  }, false);
+})
+
+.controller('AboutCtrl', function($scope) {
+  
 })
 
 .controller('EmotionCtrl', function($scope, $http, $interval, $ionicLoading, $ionicPopup) {
