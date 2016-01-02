@@ -3,13 +3,13 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 .controller('MapCtrl', function($scope, $ionicLoading, $interval, $http, $ionicPopup) {
   $scope.mapCreated = function(map) {
     $scope.map = map;
-    $scope.icon = 'http://pepitoviajero.herokuapp.com/img/pepito-small.png';
-    $scope.userIcon = 'http://pepitoviajero.herokuapp.com/img/user-position-small.png';
+    $scope.icon = 'https://pepitoviajero.herokuapp.com/img/pepito-small.png';
+    $scope.userIcon = 'https://pepitoviajero.herokuapp.com/img/user-position-small.png';
     $scope.updatePosition();
   };
 
   $scope.updatePosition = function(){
-    $http.get('http://pepitoviajero.herokuapp.com/all')
+    $http.get('https://pepitoviajero.herokuapp.com/all')
       .then(function(response){
         $scope.position = new google.maps.LatLng(response.data.latitude, response.data.longitude);
         $scope.accuracy = response.data.accuracy;
@@ -111,7 +111,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 })
 
 .controller('StatusCtrl', function($scope, $http) {
-  $http.get('http://pepitoviajero.herokuapp.com/all')
+  $http.get('https://pepitoviajero.herokuapp.com/all')
     .then(function(response) {
       $scope.data = response.data;
     }, function(error) {
@@ -147,12 +147,12 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 })
 
 .controller('AboutCtrl', function($scope) {
-  
+
 })
 
 .controller('EmotionCtrl', function($scope, $http, $interval, $ionicLoading, $ionicPopup) {
   $scope.changeColor = function(red, green, blue) {
-    $http.get('http://pepitoviajero.herokuapp.com/setcolor',
+    $http.get('https://pepitoviajero.herokuapp.com/setcolor',
       {
         params:{
           'red': red,
@@ -165,7 +165,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
           template: '<div class="spinner"><div class="dot1"></div><div class="dot2"></div></div><br>Cargando emoción...'
         });
         var stop = $interval(function() {
-          $http.get('http://pepitoviajero.herokuapp.com/all')
+          $http.get('https://pepitoviajero.herokuapp.com/all')
             .then(function(response) {
               if (response.data.color == red + ',' + green + ',' + blue){
                 $ionicLoading.hide();
