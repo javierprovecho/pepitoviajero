@@ -1,0 +1,19 @@
+<ion-view view-title="Mapa">
+  <ion-content scroll="false">
+    <map on-create="mapCreated(map)"></map>
+  </ion-content>
+  <ion-footer-bar class="bar-stable">
+    <div class="row row-center">
+      <div class="col">
+        <a ng-click="centerOnPepito()" class="button button-icon icon ion-cube small-text">
+          ¿Dónde está <b>Pepito</b>?
+        </a>
+      </div>
+      <div class="col">
+        <a ng-click="centerOnMe()" class="button button-icon icon ion-ios-body small-text">
+          ¿Dónde estás tú?
+        </a>
+      </div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

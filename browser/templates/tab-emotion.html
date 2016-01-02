@@ -1,0 +1,45 @@
+<ion-view view-title="Emociones">
+  <ion-content>
+    <div class="card">
+      <div class="item item-text-wrap">
+        Haz clic en una emoción para que <b>Pepito</b> la muestre.
+      </div>
+    </div>
+    <ion-list>
+      <ul class="list">
+        <li class="item stable-dark" ng-click="changeColor(0,0,0)">
+          😴 apagado
+          <span class="color-demo dark-bg dark-border"></span>
+        </li>
+        <li class="item positive" ng-click="changeColor(0,0,1)">
+          😭 triste
+          <span class="color-demo positive-bg positive-border"></span>
+        </li>
+        <li class="item calm" ng-click="changeColor(0,1,1)">
+          😱 asustado
+          <span class="color-demo calm-bg calm-border"></span>
+        </li>
+        <li class="item balanced" ng-click="changeColor(0,1,0)">
+          😖 asqueado
+          <span class="color-demo balanced-bg balanced-border"></span>
+        </li>
+        <li class="item energized" ng-click="changeColor(1,1,0)">
+          😄 alegre
+          <span class="color-demo energized-bg energized-border"></span>
+        </li>
+        <li class="item assertive" ng-click="changeColor(1,0,0)">
+          😡 enfadado
+          <span class="color-demo assertive-bg assertive-border"></span>
+        </li>
+        <li class="item royal" ng-click="changeColor(1,0,1)">
+          😍 enamorado
+          <span class="color-demo royal-bg royal-border"></span>
+        </li>
+        <li class="item dark" ng-click="changeColor(1,1,1)">
+          😶 encendido
+          <span class="color-demo stable-bg stable-border"></span>
+        </li>
+      </ul>
+    </ion-list>
+  </ion-content>
+</ion-view>
