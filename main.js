@@ -15,7 +15,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(serveStatic('public/', {'index': ['index.html']}));
-app.use(require('serve-static')(__dirname + '/public/complex-list/www'));
+app.use(require('serve-static')(__dirname + '/browser'));
 
 app.get('/all', function(req, res) {
   var id = app.get('id');
